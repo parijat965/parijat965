@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing 1.0 </title>
+    
+    <!--CELL PADDING->the space between its content text and its border-->
+    <!--BORDER-SPACING-> To change the space between table cells-->
+    <!--TEXt-ALIGN-> property sets the horizontal alignment (like left, right, or center)-->
+    <!--For zebra-striped tables, use the nth-child()-> selector and add a background-color to all even (or odd)-->
+    <!--If you use a transparent color you will get an overlapping effect [rgba()->]-->
+
+    <style>
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            background-color: #96D4D4;
+        }
+
+        th,
+        td {
+            border-color: blue;
+        }
+
+        th,
+        td {
+            padding: 15px 10px 5px 15px;
+        }
+
+        th,
+        td {
+            margin: 35px;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+
+        }
+
+        td {
+        text-align: center;
+        }
+
+
+        tr:nth-child(even) {
+        background-color: #D6EEEE;
+        }
+
+        tr:nth-child(even) {
+        background-color: rgba(150, 212, 212, 0.5);
+        }
+
+       th:nth-child(even),td:nth-child(even) {
+       background-color: rgba(150, 212, 212, 0.4);
+       }
+       
+
+    </style>
+</head>
+
+ <!--HTML TExT FORMATS-->
+
+<body>
+
+    <h3 style="color:blue;" >
+        <em>For testing purpose </em>   <!--<em-> tag is used to define emphasized text-->
+    </h3>
+
+    <h3 style="color: #4c9648;">
+       FOR <sub>testing</sub>Purpose  <!--<sub-> tag defines subscript text-->
+          </h3>
+
+    <h3 style="color: darksalmon;">
+        <sup>
+            For testing purpose</sup>
+    </h3>
+
+
+    <p style="color:goldenrod;">
+<abbr title="world health organization"> WHO </abbr>WAS FOUNDED IN 1948 <!--abbr a shortened form of a word or phrase-->
+    </p>
+
+    <p>
+<address>Written by john doe <br> visit us at </br> </address> <!--define contact information for the author of a document or an article -->
+    </p>
+
+    <p>
+<BDo dir="RTL">THIS TEXT LEFT TO RIGHT</BDo> <!-- This tag sets the direction of content within it to render on browser from left to right or right to left.-->
+    </p>
+
+    <blockquote cite="https://www.geeksforgeeks.org/html-tutorials/"> <!--a section that is quoted from another source-->
+       <p>HTML stands for HyperText Markup Language. Itis used to design web pages using a markup languageHTML is the combination of Hypertext and Markup language.
+        Hypertext defines the link between the web pages. A markup language is used to define the text document within
+        tag which defines the structure of web pages.</p>
+    </blockquote>
+
+    <p>
+    <cite>The Scream</cite> by Edward Munch. Painted in 1893  <!--a reference to the source of quoted material -->
+    </p>
+
+    <p>
+    WWF's goal is to:
+    <q>Build a future where people live in harmony with nature.</q> <!--the enclosed text is a short inline quotation-->
+    We hope they succeed.
+    </p>
+
+
+    <!--LINKS-->
+
+    <a href="https://www.google.com/" target="_blank"> <!-- A-> anchor tag||"Target" open the link in a new tab-->
+        click to visit GOOGLE
+    </a>
+
+
+    <!--IMAGE-->
+
+<img src="https://media.istockphoto.com/photos/colorful-vegetables-and-fruits-vegan-food-in-rainbow-colors-picture-id1284690585?s=612x612"
+alt="cookie image" style="height: 55 px; width:145 px ;" /> <!--ALT-> to show what kind of img if  image corrupted-->
+    
+
+    <!--TABLE-->
+
+    <div style="overflow-x: auto;"></div>  <!--A responsive table will display a horizontal scroll bar if the screen is too small -->
+
+    <table style="width: 100%;">   <!--width of the table to 100%-->
+
+    <colgroup>
+     <col span="2" style="background-color: #D6EEEE"> <!--Add the a colgroup with a col element that spans over two columns to define a style for the two columns-->
+    </colgroup>
+
+        <caption>STUDENT DATABSE</caption>
+
+        <tr>
+
+            <th>NAME</th>
+            <th>COLLEGE</th>
+            <th>YEAR</th>
+        </tr>
+
+        <tr>
+            <th>parijat</th>  <!--The first column becomes table headers if you set the first table cell in each table row to a TH element-->
+            <td>cemk</td>
+            <td>2022</td>
+        </tr>
+
+        <tr>
+            <td>parijat</td>
+            <td>cemk</td>
+            <td>2022</td>
+        </tr>
+
+    </table>
+
+    <!--LISTS-->
+
+    <!--An unordered list starts with the <ul> tag. Each list item starts with the <li> tag.-->
+    <!--The <dl> tag defines the description list, the <dt> tag defines the term (name), 
+    and the <dd> tag describes each term-->
+
+    <!--1.UL-> unsorted LISTS-->
+    <ul style="list-style-type:circle ;">
+
+        <li>potato</li>
+        <li>potato</li>
+        <li>potato</li>
+        <li>potato</li>
+
+    </ul>
+
+    <!--2. OL-> ordred list-->
+    <ol type="1" start="3">  <!--type=1,i,A --ITEM NUMBERS-->
+
+        <li>potato</li>
+        <li>ami</li>
+        <li>jssj</li>
+        <li>jisfivsiv</li>
+
+    </ol>
+
+    <!--3.Description list-->
+    <dl>
+        <dt>Coffee</dt>
+        <dd>- black hot drink</dd>
+        <dt>Milk</dt>
+        <dd>- white cold drink</dd>
+      </dl>
+
+    <!--4.nested list-->
+    <ol style="list-style-type:circle ;"  >
+        <li>Coffee</li>
+        <li>Tea
+          <ol>
+            <li>Black tea</li>
+            <li>Green tea</li>
+          </ol>
+        </li>
+        <li>Milk</li>
+      </ol>
+      
+</body>
+
+</html> 

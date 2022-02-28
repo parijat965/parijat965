@@ -1,0 +1,40 @@
+/*colors*/
+
+
+/*apply for total background*/
+ /* body {
+    background-image: url("https://images.unsplash.com/photo-1645019870197-ea07adc14065?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
+    background-color: #cccccc;
+      background-repeat: no-repeat;  
+   }  */
+h1{
+
+    color: red;/*text colour*/
+    /* background-color: burlywood;Background colour */
+    border-color: black;
+    /* background-image: url("https://images.unsplash.com/photo-1645019870197-ea07adc14065?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"); */
+    /* background-repeat: no-repeat; */
+
+}
+
+h2{
+margin: 15px 20px 19px 20px;
+border: 2px solid black;
+padding: 7px;
+}
+
+a{
+   text-decoration: none;
+}
+
+p{
+
+   text-transform: capitalize;
+   text-indent: 35px;
+   line-height: 4px;
+   word-spacing: 20px;
+}
+
+
+
+
