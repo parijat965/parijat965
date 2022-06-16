@@ -1,0 +1,590 @@
+sqlplus cse19072@172.16.11.40/XEPDB1
+
+##1 Create Table.
+
+create table EMP19072
+( Empno number(4) not null PRIMARY KEY,
+Empname varchar(25) not null,
+Job varchar(15) not null,
+Mgr number(4),
+Hiredate Date,
+Salary number(5) not null,
+Comm number(5) default 0,
+Deptno number(2) not null);
+
+##2 Insert operation into the table :
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7369, 'SMITH', 'CLERK', 7902, '17-DEC-80', 16000, 500, 20);
+
+##3 Display all info from the table.
+
+select * from EMP19072;
+
+##4 Set Line Size.
+
+set linesize 150
+/
+
+##2nd Row
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7499, 'ALLEN', 'SALESMAN', 7698, '20-FEB-81', 21000, 300, 30);
+
+##3rd Row
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7521, 'WARD', 'SALESMAN', 7698, '22-JAN-81', 25500, 400, 30);
+
+##4th
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7566, 'JONES', 'MANAGER', 7839, '02-APR-81', 29700, 100, 20);
+
+##5TH Row
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7698, 'BLACKE', 'ANALYST', 7566, '09-JUN-81', 24800, 1400, 10);
+
+##6th Row
+
+insert into EMP19072(Empno, Empname, Job, Mgr, Hiredate, Salary, Deptno)
+values(7876, 'ADAM', 'CLERK', 7788, '23-MAY-87', 35000, 10);
+
+
+
+
+
+#########################################################################################################################################
+
+
+Query 4 :
+
+Display all info about department no. 10
+select * from EMP19072 where deptno = 10;
+
+Query 5 :
+
+Display Empname and salary whoose salary between 15000 to 30000.
+select Empname, Salary from EMP19072 where Salary between 15000 and 30000;
+
+Query 6 :
+
+Display Empno and Empname from the table whoose job is CLERK.
+select Empno, Empname from EMP19072 where Job='CLERK';
+
+Query 6 :
+
+Display all distinct job.
+select distinct Job from EMP19072;
+
+Query 7 :
+
+List the employee deatils who have joined before 1985.
+select * from EMP19072 where Hiredate<='01-JAN-85';
+
+Query 8 :
+
+Display all employee info according to their salary in ascending order.
+select * from EMP19072 order by salary asc;
+
+Query 9 :
+List the employees whoose job is salesman and department no. is 30.
+select * from EMP19072 where Job='SALESMAN' and Deptno= 30;
+
+Query 10 :
+
+Display the Empno, Empname and Salary for Mgr is 7698.
+select Empno, Empname, Salary from EMP19072 where Mgr=7698;
+
+Query 11 :
+
+List of Employee details whoose daily Salary is more then 1000.
+select * from EMP19072 where (Salary/30)>1000;
+
+Query 12 :
+
+List all employees in the deptart no. 10 and 20 order of Empname.
+select * from EMP19072 where Deptno=10 or Deptno=20 order by Empname asc;
+ 				or
+select * from EMP19072 where Deptno in(10,20) order by Empname asc;
+
+Query 13 :
+
+Display employee names starting with S.
+select Empname from EMP19072 where Empname like 'S%';
+
+Query 14 :
+
+Display employee names ending with S.
+select Empname from EMP19072 where Empname like '%S';
+
+Query 15 :
+
+list the employee name where 'A' alphabet present in between.
+select Empname from EMP19072 where Empname like '%A%';
+
+Query 16 :
+
+Display employee name and yearly salary of all employee.
+select Empname "EMP_NAME", Salary*12+NVL(Comm,0) "YEARLY_SALARY" from EMP19072; 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+							24.02.2022 Lab All Queries
+------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Display all Employee info whose commission is none.
+select * from EMP19072 where Comm=null;
+
+2. Update Employee info of empno 7499, set salary to 55000.
+update EMP19072 set Salary=55000 where Empno = 7499;
+
+3. Display Maximum salary, minimum salary, avarage salary and salary sum from the Emp table.
+Select max(Salary) "MAXSAL", min(Salary) "MINSAL", avg(Salary) "AVGSAL", sum(Salary) "Summation" from EMP19072;
+
+4. Display total number of rows from emp table.
+select count(*) from EMP19072;
+
+5. Display number of employees of emp table whoose job is salesman.
+select count(Job) from EMP19072 where Job='SALESMAN';
+
+6. Display the details of an employee who is earning highest salary from the organisation.
+select * from EMP19072 where Salary in(select max(Salary) from EMP19072);    //Inner Query & Outer Query
+
+7. Display the details of an employee who is earning second highest salary from the organisation.
+select * from EMP19072 where Salary in(select max(Salary) from EMP19072 where Salary not in (select max(Salary) from EMP19072));
+
+8. Display employee details of each department number who is earning highest salary.
+select * from EMP19072 where Salary in(select max(Salary) from EMP19072 group by Deptno); 
+
+9. Modify the attribute name Empno to Eno.
+alter table EMP19072 rename column Empno to Eno;
+
+10. Display Emp info whoose salary given by the user.
+select * from EMP19072 where Salary = &Sal; 
+Job='&JOB';
+
+11. Display the avarage salary of each job.
+select * from EMP19072 where Salary in (select avg(Salary) from EMP19072 group by Job);
+select count(Empname) from EMP19072;
+
+12. Display all Empname along with their salary and name should be display first letter will be caps and other will be in small.
+select INITCAP(Empname) "EMPNAME" from EMP19072;
+
+13. Update the employee info whoose job will be analyst.
+update EMP19072 set Salary=50500 where Job='ANALYST';
+14. Display the employee whoose name is exactly four characters.
+select Empname from EMP19072  where length(Empname)=4;
+
+15. Count the Employee number under each department.
+select count(*), Deptno from EMP19072 group by Deptno;
+
+16. Delete a record from the table whoose job is analyst.
+delete from EMP19072 where Job='ANALYST'; 
+
+##########################################################################################################################################
+							03.03.2022
+##########################################################################################################################################
+
+
+Insert 5 tupples.
+insert into EMP19072(Eno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7788, 'SCOTT', 'ANALYST', 7566, '19-APR-83', 32000, 200, 30);
+
+insert into EMP19072(Eno, Empname, Job, Hiredate, Salary, Comm, Deptno)
+values(7839, 'KING', 'PRESIDENT', '25-MAY-86', 45000, 200, 10);
+
+insert into EMP19072(Eno, Empname, Job, Mgr, Hiredate, Salary, Deptno)
+values(7900, 'JAMES', 'CLERK', 7788, '03-DEC-82', 21000, 30);
+
+insert into EMP19072(Eno, Empname, Job, Mgr, Hiredate, Salary, Comm, Deptno)
+values(7934, 'MILLER', 'MANAGER', 7698, '23-JAN-83', 17000, 340, 20);
+
+insert into EMP19072(Eno, Empname, Job, Mgr, Hiredate, Salary, Deptno)
+values(7902, 'FORD', 'ANALYST', 7566, '17-NOV-84', 40000, 20);
+
+
+
+create table DEPT19072
+( Deptno number(2) not null PRIMARY KEY,
+Dname varchar(25) not null,
+Dlocation varchar2(25) not null);
+
+Insert 5 Tuples.
+
+insert into DEPT19072(Deptno, Dname, Dlocation)
+values(10, 'HRD', 'MUMBAI');
+
+insert into DEPT19072(Deptno, Dname, Dlocation)
+values(20, 'RESEARCH', 'KOLKATA');
+
+insert into DEPT19072(Deptno, Dname, Dlocation)
+values(30, 'SALES', 'DELHI');
+
+insert into DEPT19072(Deptno, Dname, Dlocation)
+values(40, 'OPERATION', 'PUNE');
+
+
+Queries under this 2 tables.
+
+Q1 : Display all Empname and their departmant info from the existing tables(EMP & DEPT)
+select e.Empname, d.Deptno, d.Dname, d.Dlocation from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno;
+
+Q2 : Show all employee info whoose Dlocation is not kolkata.
+select e.Empname, d.Deptno, d.Dname, d.Dlocation from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno and Dlocation!= 'KOLKATA';
+
+Q3 : List the Empname, Job, Salary and Dname for everyone in the company except clerk. Sort from salary in Decending order.
+select e.Empname, e.Job, e.Salary, d.Dname from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno and e.Job!= 'CLERK' order by e.Salary desc;
+
+##SELF JOIN## 
+Q4 : Find all employees who joined the company before their manager.
+select e.Empname, m.Empname from EMP19072 e, EMP19072 m where e.Mgr = m.Eno and e.Hiredate<m.Hiredate;
+
+##SELF JOIN## 
+Q5 : List of Employees by name and number alomg with their managers name and number.
+select e.Empname, e.Eno, m.Empname, m.Eno from EMP19072 e, EMP19072 m where e.Mgr = m.Eno;
+
+Q6 : In which year did most people joined the company ?? Display the year and number of employees.
+select dt, ct from(select to_char(Hiredate,'YYYY') dt, count(*) ct from EMP19072 group by to_char(Hiredate,'YYYY')) order by 2 desc;
+
+Q7 : find the most recently hired employees who earns a salary greater than avarage for their dept. Sort in dept no order.
+select e.Empname, e. Salary, e.Hiredate from EMP19072 e where (e.Deptno, e.Hiredate) in (select b.Deptno, max(b.hiredate) from EMP19072 b where b.Salary<(select avg (Salary) from EMP19072 where Deptno = b.Deptno) group by Deptno);
+
+Q8 : Who are the top three earners in the company, Display their name and salary.
+select Empname, Salary from (select Empname, Salary from EMP19072 order by Salary desc) where rownum<=3;
+
+
+##########################################################################################################################################
+							Lab : 10.03.2022
+##########################################################################################################################################
+
+
+Q1 : List the employees thoose are having four characters in their name and third character must be a.
+select Empname from EMP19072 where Empname like '__A_';
+
+Q2 : List the employees whoose annual salary ranging from 18000 to 34000.
+select Empname from EMP19072 where Salary*12+NVL(Comm,0) between 34000 and 18000;
+
+Q3 : Display all employee info whoose department location at pune but department number is not 10.
+select e.Empname, e.Eno, d.Dname, d.Deptno, d.Dlocation from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno and d.Deptno != 10 and d.Dlocation = 'PUNE'; 
+
+Q4 : Display only department location of the employee SMITH.
+select d.Dlocation from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno and e.Empname='SMITH';
+
+Q5 : Find the employee name and job of the employees who have earn max salary and commision.
+select Empname, Job from EMP19072 where Salary in (select max(Salary) from EMP19072) and Comm!=0;
+					or
+select * from EMP19072 where Salary in (select max(Salary) from EMP19072) and Comm!=0;
+
+Q6 : Find the max average salary drawn for each job except the job is manager.
+select max(avg(Salary)) from EMP19072 where Job!='MANAGER' group by Job;
+
+Q7 : List the employees whoose salary is starting with numeric value 2.
+select * from EMP19072 where Salary like '2%';
+
+Q8 : List the employee who have join in the month of Jan.
+select * from EMP19072 where to_char(Hiredate,'MON')='JAN';
+
+Q9 : List the employee who are CLERK and having experience more then 4 years.
+select * from EMP19072 where months_between(sysdate, Hiredate)/12 > 4 and job = 'CLERK';
+
+Q10 : List the employee details along with their department who are working at DELHI.
+select e.Empname, d.Deptno, d.Dname from EMP19072 e, DEPT19072 d where e.Deptno=d.Deptno and d.Dlocation='DELHI';
+
+Q11 : List the employees whoose salary is greater than SMITH's salary.
+select * from EMP19072 where (select Salary from EMP19072 where Empname = 'SMITH')<Salary;
+
+Q12 :  List the details of most recently hired employee of department number 20.
+select * from EMP19072 where Hiredate in(select max(Hiredate) from EMP19072 where Deptno = 20);
+
+Q13 : List the details of the department along with employee number and employee name or without the employees.
+select * from EMP19072 e, DEPT19072 d where e.Deptno(+)=d.Deptno
+
+------------------------------------------------------------------------------------------------------------------------------------------
+								24.03.2022
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Create table ITEMINFO
+(I_NO number(10),
+I_NAME varchar2(25) not null,
+I_PRICE number(3,2),
+I_QTY number(3),
+constraint PK_Ino primary key(I_NO),
+constraint CH_Ino check(I_NO between 1 and 10),
+constraint CH_Iname check(I_NAME = INITCAP(I_NAME)),
+constraint CH_Iprice check(I_PRICE between 0.00 and 10.00),
+constraint CH_Qty check(I_QTY>5));
+
+##Insert values in the table.##
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(1,'Screw',2.25,50);
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(2,'Nut',5.00,110);
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(3,'Bolt',6.99,750);
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(4,'Hammer',9.99,125);
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(5,'Washer',1.39,100);
+
+insert into ITEMINFO(I_NO, I_NAME, I_PRICE, I_QTY)
+values(6,'Nail',0.99,500);
+
+
+
+###Create Table CUSTOMER###
+
+Create table CUSTOMER
+(C_NO number(5),
+C_NAME varchar2(25) not null,
+C_STATE varchar2(2) default 'WB',
+ITEM_NO number(10) not null,
+constraint PK_Cno primary key(C_NO),
+constraint CH_Cno check(C_NO between 10001 and 20000),
+constraint CH_State check(C_STATE in ('WB', 'UP', 'AP', 'MP')));
+
+insert into CUSTOMER(C_NO, C_NAME, C_STATE, ITEM_NO)
+values(10001,'Prakash','UP',1);
+
+insert into CUSTOMER(C_NO, C_NAME, C_STATE, ITEM_NO)
+values(10002,'MUKESH','AP',3);
+
+insert into CUSTOMER(C_NO, C_NAME, C_STATE, ITEM_NO)
+values(10003,'MURTY','UP',5);
+
+insert into CUSTOMER(C_NO, C_NAME, C_STATE, ITEM_NO)
+values(10004,'RANJAN','WB',6);
+
+
+######QUERIES######
+
+Q1 : Display all itemno and item quantity from the ITEM Table.
+	select I_NO,I_QTY from ITEMINFO;
+
+Q2 : Display the details of the customer Prakash.
+	select * from CUSTOMER where C_NAME='Prakash';
+	
+Q3 : Display all customer who are from UP.
+	select * from CUSTOMER where C_STATE='UP';
+	
+Q4 : Display all customers who are from AP or WB.
+	select * from CUSTOMER where C_STATE='AP' OR C_STATE='WB';
+	
+Q5 : Display all customer details along with their items whoose name ending with 'h'.
+	select e.I_NO, e.I_NAME, e.I_PRICE, e.I_QTY, d.C_NO, d.C_NAME, d.C_STATE, d.ITEM_NO from ITEMINFO e, CUSTOMER d where e.I_NO=d.ITEM_NO and d.C_NAME like '%h';
+	
+Q6 : Find all items details which price within 5.6
+	select * from ITEMINFO where I_PRICE<=5.6;
+	
+Q7 : Dsiplay all the item details as per quantity descending order.
+	select * from ITEMINFO order by I_QTY desc;
+	
+Q8 : Find all items which price greater than 5.6 and quantity less than 100.
+	select * from ITEMINFO where I_PRICE>5.6 and I_QTY<100;
+
+Q9 : Sort all customers in descending order of their state.
+	select * from CUSTOMER order by C_STATE desc;
+	
+Q10 : Find all items which price does not lie in between 4 to 9.
+	select * from ITEMINFO where I_PRICE not between 4 and 9;
+
+Q11 : Change the quantity value 70 for the item no 1.
+	update ITEMINFO set I_QTY=70 where I_NO=1;
+	
+Q12 : Change the item price to Nut to 4.7.
+	update ITEMINFO set I_PRICE=4.7 where I_NAME='Nut';
+	
+Q13 : Delete all items which item quanity more than 600.
+	delete from ITEMINFO where I_QTY>600;
+	
+#########################################################################################################################################
+								31.03.2022
+#########################################################################################################################################
+
+
+Q1 : Insert into iteminfo table by user defined representation. Information's are 7, Bolt, 7.88, 590.
+insert into iteminfo values(&I_No, '&I_Name', &I_Price, &Qty);
+
+Q2 : Calculate the summation of quantity.
+select SUM(I_QTY) from ITEMINFO;
+
+Q3 : Count the number of rows of iteminfo table.
+select count(*) as count_iteminfo from ITEMINFO;
+
+Q4 : Insert phoneno attribute into Customer table with size 10.
+alter table customer add phoneno number(10);
+
+Q5 : Display customer number, customer name & item name from the given tables where item name should not be Nail.
+select c.C_NO, c.C_NAME, i.I_NAME from CUSTOMER c, ITEMINFO i where i.I_NO=c.ITEM_NO and i.I_NAME! ='Nail';
+
+Q6 : Display all info from both the tables with item price < 5.12 and item quantity>200.
+select * from CUSTOMER c, ITEMINFO i where i.I_NO = c.ITEM_NO and i.I_PRICE<5.12 and i.I_QTY>200;
+
+Q7 : Count number of customers belongs to "UP".
+select count(*) from CUSTOMER where C_STATE='UP';
+
+Q8 : Display all info from iteminfo table of lowest quantity.
+select * from iteminfo where I_QTY in (select min(I_QTY) from ITEMINFO);
+
+Q9 : Display all constraints of ItemInfo table.
+select CONSTRAINT_NAME, CONSTRAINT_TYPE from user_constraints where table_name='ITEMINFO';
+
+Q10 : Display numbers of customers of each state where counted value of customers more than 1.
+select count(*) from customer group by C_STATE having count(*)>1;
+
+Q11 : Perform the right outer join between the tables where information's of the some right side column must be blank or empty.
+select * from ITEMINFO e, CUSTOMER d where e.I_NO = d.ITEM_NO(+);
+
+Q12 : Create a simple view [item_Price] with I_Name and I_Price only.
+create or replace view Item_Price as(select I_Name, I_Price from iteminfo);
+select * from Item_Price;
+
+Q13 : Display all info from the view.
+create or replace view All_Item as(select * from ITEMINFO);
+select * from All_Item;
+
+Q14 : Create a sequence that can be used to enter new items into Item_XX table.
+select * from All_Item;
+
+Q15 : Add a new item into the Item_XX table with the sequence just created.
+Insert into Iteminfo(I_NO,I_NAME,I_PRICE,I_QTY)
+values(Item_XXX.nextval,'Abcs',2.5,303);
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+							07.04.2022
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE A TABLE : BOOK
+
+create table BOOK
+(NO number(3) not null,
+C_NAME varchar2(25) not null,
+PRICE number(6,2) not null,
+PUBLISHER varchar2(2) default 'AC',
+constraint PK_no primary key(NO),
+constraint CH_no check(NO between 100 and 145),
+constraint CH_PUBLISHER check(PUBLISHER in ('AB','PQ','RS','AC'))
+);
+
+desc BOOK;
+
+create sequence Book_Info increment by 2 start with 100;
+
+insert into BOOK values(Book_Info.nextval,'Math',1022.25,'AB');
+
+insert into BOOK values(book_info.nextval,'Phy',2135.00,'PQ');
+
+insert into BOOK values(book_info.nextval,'Object Technology',2406.99,'RS');
+
+insert into BOOK values(book_info.nextval,'Network',1259.99,'AB');
+
+insert into BOOK values(book_info.nextval,'Cloud Computing',1654.39,'AC');
+
+
+Quaries : 
+
+Q1 : Display all records of the table.
+select * from BOOK;
+
+Q2 : Display all books in ascending order.
+select C_NAME from book order by C_NAME asc;
+
+Q3 : Sort all books as per price descending order.
+select C_NAME from book order by PRICE desc;
+
+Q4 : Display numbers of books each publisher.
+select publisher,count(*) from BOOK group by PUBLISHER;
+
+
+Q5 : Insert one tuple where NO comes from sequence and other two info are DBMS, 2341.50.
+insert into BOOK values(book_info.nextval,'DBMS',2341.50,'AC');
+
+Q6 : Find the total cost of all books.
+select SUM(PRICE) from BOOK;
+
+Q7 : Display the details of most costly book.
+select * from book where PRICE in (select max(PRICE) from BOOK);
+
+Q8 : Display all books where book name ending with 'd' oy 'y'.
+select C_NAME from BOOK where C_NAME like '%d' or C_NAME like '%y';
+
+Q9 : Update the book name 'phy' to 'psychology' and price 4300.00
+update BOOK set C_NAME='psychology',PRICE=4300.00 where C_NAME='Phy'; 
+
+Q10 : Create a view of books with the name Book_info and consist of all record.
+create or replace view Book_info1 as(select * from BOOK);
+select * from Book_info1;
+
+
+
+
+21/04/22/////////////////////////////////////////////////
+
+ED ADD;
+DECLARE
+N1 NUMBER(5);
+N2 NUMBER(5);
+RESULT NUMBER(6);
+BEGIN
+N1:=&NUM;
+N2:=&NUM;
+RESULT:=N1+N2;
+DBMS_OUTPUT.PUT_LINE('THE RESULT IS: '||RESULT);
+END;
+
+
+SET SERVEROUTPUT ON;
+
+/
+
+ED FACT;
+DECLARE
+f number:=1;
+n number:=&1;
+BEGIN
+while n>0 loop
+f:=n*f;
+n:=n-1;
+end loop;
+dbms_output.put_line(f);
+end;
+
+ed fact;
+declare
+n number;
+f number:=1;
+i number;
+begin
+n:=&n;
+for i in 1..n
+loop
+f:=f*i;
+end loop;
+dbms_output.put_line('factorial= '||f);
+end;
+
+
+
+create table Radius_Area(
+Redius number(3) not null,
+Area number(14,2) not null
+);
+
+declare
+r number(3);
+area number(14,2);
+p constant number(3,2):=3.14;
+begin
+for r in 2..10
+loop
+area:=p*power(r,2);
+insert into Radius_Area values(r,area);
+end loop;
+end;
+
