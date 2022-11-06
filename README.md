@@ -33,6 +33,9 @@
 
 <br>
 
+   [![@parijatghosh2's Holopin board](https://holopin.me/parijatghosh2)](https://holopin.io/@parijatghosh2)
+
+
 <h3 align="center">Show some &nbsp;❤️&nbsp; by starring some of the repositories!</h3>
 
 [linkedin]:https://www.linkedin.com/in/parijat-ghosh-124b5918a/
